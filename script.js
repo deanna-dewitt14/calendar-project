@@ -9,16 +9,15 @@ init(currentHour);
 
 // jQuery event handlers
 $( "#currentDay").html(moment(new Date()).format('dddd, MMMM Do')); //inject todays date
-$( "#nineSave" ).on( "click", handleSave(evt));
-$( "#tenSave" ).on( "click", handleSave(evt));
-$( "#elevenSave" ).on( "click", handleSave(evt));
-$( "#twelveSave" ).on( "click", handleSave(evt));
-$( "#oneSave" ).on( "click", handleSave(evt));
-$( "#twoSave" ).on( "click", handleSave(evt));
-$( "#threeSave" ).on( "click", handleSave(evt));
-$( "#fourSave" ).on( "click", handleSave(evt));
-$( "#fiveSave" ).on( "click", handleSave(evt));
-
+$( "#nineSave" ).on( "click", function(e){handleSave(e);});
+$( "#tenSave" ).on( "click", function(e){handleSave(e);});
+$( "#elevenSave" ).on( "click", function(e){handleSave(e);});
+$( "#twelveSave" ).on( "click", function(e){handleSave(e);});
+$( "#oneSave" ).on( "click", function(e){handleSave(e);});
+$( "#twoSave" ).on( "click", function(e){handleSave(e);});
+$( "#threeSave" ).on( "click", function(e){handleSave(e);});
+$( "#fourSave" ).on( "click", function(e){handleSave(e);});
+$( "#fiveSave" ).on( "click", function(e){handleSave(e);});
 
 /* setInterval(function() {
 	currentHour = new Date().getHours();
@@ -28,7 +27,6 @@ $( "#fiveSave" ).on( "click", handleSave(evt));
 	}
 	console.log('currentHour: ' + currentHour);
 }, 60000); */
-
 
 //FUNCTIONS
 
@@ -44,4 +42,14 @@ function changeHourColor(hour) {
 	$('textarea[name=' + hourMap[hour-1] + ']').removeClass( "present" ).addClass( "past" );
 }
 
+function handleSave(e) {
+	let targetTextarea = document.getElementsByName(e.target.id.slice(0, -4));
 
+
+// TODO: create a map for local storage
+// place saved elements into map
+// recall any saved elements on init
+
+
+	console.log('targetButton: ' + targetTextarea[0].value);
+}
