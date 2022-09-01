@@ -2,6 +2,8 @@
 
 Welcome to your Work Day Calendar!
 
+https://deanna-dewitt14.github.io/calendar-project/
+
 With the hussle and bussle of the day, keeping a schedule is important to keep on task.
 
 When you go threw your work day you will find that your calendar will change colors depending on the time.
@@ -16,3 +18,5 @@ If you are going to enter in a new task please make sure you click on every save
 
 Have a great day!
 ( Don't worry it will be 5 o'clock soon 😉 )
+
+<img width="1387" alt="Work Day Calendar" src="https://user-images.githubusercontent.com/109932251/187825517-93aadb6b-934c-4bf3-b387-85eeab7cd2e2.png">
