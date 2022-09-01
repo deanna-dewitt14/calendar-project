@@ -1,21 +1,11 @@
 // VARIABLES 
-var currentHour = 11  //new Date().getHours();
+var currentHour = new Date().getHours();
 var hourPointer = currentHour;
 var hourMap = [
 	null, null, null, null, null, null, null, null, null, 
 	'nine', 'ten', 'eleven', 'twelve', 'one', 'two', 'three', 'four', 'five'];
-var savedData = new Map ([
-	['nine', ''],
-	['ten', ''],
-	['eleven', ''],
-	['twelve', ''],
-	['one', ''],
-	['two', ''],
-	['three', ''],
-	['four', ''],
-	['five', '']]); 
+var savedData = new Map();
 
-localStorage.storedData = JSON.stringify(Array.from(savedData.entries()));
 init(currentHour);
 
 // jQuery event handlers
@@ -30,23 +20,28 @@ $( "#threeSave" ).on( "click", function(e){handleSave(e);});
 $( "#fourSave" ).on( "click", function(e){handleSave(e);});
 $( "#fiveSave" ).on( "click", function(e){handleSave(e);});
 
-/* setInterval(function() {
+setInterval(function() {
 	currentHour = new Date().getHours();
 	if(currentHour != hourPointer && currentHour < 18 && currentHour > 8) {
 		changeHourColor(currentHour);
 		hourPointer = currentHour;
 	}
 	console.log('currentHour: ' + currentHour);
-}, 60000); */
+}, 60000);
 
 //FUNCTIONS
 
 function init(hour) {
-	recalledData = new Map(JSON.parse(localStorage.storedData));
-	recalledData.forEach((value, key) => {
-		console.log(value, key);
-	});
+	recalledData = new Map(JSON.parse(localStorage.getItem('storedData')));
+	recalledDataString = localStorage.getItem('storedData');
 
+	if (recalledData != null) {
+		recalledData.forEach((value, key) => {
+			let targetTextarea = document.getElementsByName(key);
+			targetTextarea[0].value = value;
+		});
+		savedData = recalledData;
+	}
 	$('textarea[name=' + hourMap[hour] + ']').removeClass( "past" ).addClass( "present" );
 	for (let index = hour + 1; index < 18; index++) {
 		$('textarea[name=' + hourMap[index] + ']').removeClass( "past" ).addClass( "future" );
@@ -64,7 +59,5 @@ function handleSave(e) {
 
 	savedData.set(targetButton,targetTextarea[0].value);
 	localStorage.storedData = JSON.stringify(Array.from(savedData.entries()));
+	console.log('saved');
 }
-
-
-// recall any saved elements on init
