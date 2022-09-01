@@ -1,10 +1,21 @@
 // VARIABLES 
 var currentHour = 11  //new Date().getHours();
-var hourPointer = currentHour
+var hourPointer = currentHour;
 var hourMap = [
 	null, null, null, null, null, null, null, null, null, 
 	'nine', 'ten', 'eleven', 'twelve', 'one', 'two', 'three', 'four', 'five'];
+var savedData = new Map ([
+	['nine', ''],
+	['ten', ''],
+	['eleven', ''],
+	['twelve', ''],
+	['one', ''],
+	['two', ''],
+	['three', ''],
+	['four', ''],
+	['five', '']]); 
 
+localStorage.storedData = JSON.stringify(Array.from(savedData.entries()));
 init(currentHour);
 
 // jQuery event handlers
@@ -31,6 +42,11 @@ $( "#fiveSave" ).on( "click", function(e){handleSave(e);});
 //FUNCTIONS
 
 function init(hour) {
+	recalledData = new Map(JSON.parse(localStorage.storedData));
+	recalledData.forEach((value, key) => {
+		console.log(value, key);
+	});
+
 	$('textarea[name=' + hourMap[hour] + ']').removeClass( "past" ).addClass( "present" );
 	for (let index = hour + 1; index < 18; index++) {
 		$('textarea[name=' + hourMap[index] + ']').removeClass( "past" ).addClass( "future" );
@@ -43,13 +59,12 @@ function changeHourColor(hour) {
 }
 
 function handleSave(e) {
-	let targetTextarea = document.getElementsByName(e.target.id.slice(0, -4));
+	let targetButton = e.target.id.slice(0, -4);
+	let targetTextarea = document.getElementsByName(targetButton);
 
-
-// TODO: create a map for local storage
-// place saved elements into map
-// recall any saved elements on init
-
-
-	console.log('targetButton: ' + targetTextarea[0].value);
+	savedData.set(targetButton,targetTextarea[0].value);
+	localStorage.storedData = JSON.stringify(Array.from(savedData.entries()));
 }
+
+
+// recall any saved elements on init
